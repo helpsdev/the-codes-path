@@ -1,0 +1,20 @@
+.challenge{
+    display:flex;
+}
+.code-arena{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.code-arena, .explanation{
+    width:50%;
+    height: 200px;
+    border:1px solid;
+}
+.console,.coding-area{
+    height: 20%;
+    border: 1px solid;
+}
+.coding-area{
+    flex-grow: 1;
+}
