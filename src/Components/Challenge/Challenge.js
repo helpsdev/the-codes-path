@@ -18,16 +18,18 @@ function Challenge() {
                     theme="monokai" width="100%" 
                     fontSize={14} onChange={setAceEditorValue}
                 />
-                <section className="console">{aceEditorValue}</section>
+                <section className="console"></section>
             </section>
             <section className="explanation">
                 <p>{currentLesson.explanation}</p>
-                <button type="button">Run Tests</button>
+                <button type="button" onClick={runTests.bind(this, aceEditorValue)}>Run Tests</button>
             </section>
         </div>
     )
 }
-
+function runTests(currentCode){
+    console.log(eval(currentCode));
+}
 function getLessonByLessonId(lessonId) {
     return LessonsArray.find(l => l.id === Number(lessonId));
 }
