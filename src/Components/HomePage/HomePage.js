@@ -1,6 +1,7 @@
 import './HomePage.css';
 import { Link } from 'react-router-dom';
 import MyProgress from "../../Components/MyProgress/MyProgress";
+import LessonsArray from "../../lessons.json";
 
 function HomePage(){
     return(
@@ -16,9 +17,14 @@ function HomePage(){
                 Prove yourself what you are capable of!
             </p>
             <Link to="/lessons">LET'S DO THIS!</Link>
-            <MyProgress name="My Progress" value="10" />
+            <MyProgress name="My Progress" value={getCurrentProgress()} />
         </div>
     )
+}
+
+function getCurrentProgress() {
+    const completedLessons = JSON.parse(sessionStorage.getItem("completedLessons")) || [];
+    return completedLessons.length > 0 ? (completedLessons.length / LessonsArray.length) * 100 : 0;
 }
 
 export default HomePage;
