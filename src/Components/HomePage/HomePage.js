@@ -4,8 +4,13 @@ import MyProgress from "../../Components/MyProgress/MyProgress";
 import LessonsArray from "../../lessons.json";
 
 function HomePage(){
+    const hasCurrentUserBeenHereBefore = getUser() !== null;
+
     return(
         <div>
+            {
+                hasCurrentUserBeenHereBefore && <MyProgress name="My Progress" value={getCurrentProgress()} />
+            }
             <h1>THE CODE'S PATH</h1>
             <p>JavaScript is the most popular programming language nowdays...</p>
             <p>
@@ -17,11 +22,12 @@ function HomePage(){
                 Prove yourself what you are capable of!
             </p>
             <Link to="/lessons">LET'S DO THIS!</Link>
-            <MyProgress name="My Progress" value={getCurrentProgress()} />
         </div>
     )
 }
-
+function getUser() {
+    return JSON.parse(sessionStorage.getItem("user"));
+}
 function getCurrentProgress() {
     const completedLessons = JSON.parse(sessionStorage.getItem("completedLessons")) || [];
     return completedLessons.length > 0 ? (completedLessons.length / LessonsArray.length) * 100 : 0;
