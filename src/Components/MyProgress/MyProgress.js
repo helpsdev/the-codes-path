@@ -5,7 +5,7 @@ function MyProgress(props){
 
     return (
         <div>
-            <label for={dynamicProgressId}>{props.name}: </label>
+            <label htmlFor={dynamicProgressId}>{props.name}: </label>
             <progress id={dynamicProgressId} max="100" value={props.value}>{props.value}%</progress>
         </div>
     );
