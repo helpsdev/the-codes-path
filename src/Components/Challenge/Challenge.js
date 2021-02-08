@@ -18,7 +18,7 @@ function Challenge() {
                     theme="monokai" width="100%" 
                     fontSize={14} onChange={setAceEditorValue}
                 />
-                <section className="console"></section>
+                <section className="console" data-console></section>
             </section>
             <section className="explanation">
                 <p>{currentLesson.explanation}</p>
@@ -27,8 +27,12 @@ function Challenge() {
         </div>
     )
 }
+function createFunction(currentCode) {
+    return new Function(currentCode);
+}
 function runTests(currentCode){
-    console.log(eval(currentCode));
+    const codeArenaConsole = document.querySelector("[data-console]");
+    codeArenaConsole.innerHTML = createFunction(currentCode)();
 }
 function getLessonByLessonId(lessonId) {
     return LessonsArray.find(l => l.id === Number(lessonId));

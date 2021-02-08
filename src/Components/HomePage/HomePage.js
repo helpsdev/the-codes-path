@@ -1,5 +1,6 @@
 import './HomePage.css';
 import { Link } from 'react-router-dom';
+import MyProgress from "../../Components/MyProgress/MyProgress";
 
 function HomePage(){
     return(
@@ -15,6 +16,7 @@ function HomePage(){
                 Prove yourself what you are capable of!
             </p>
             <Link to="/lessons">LET'S DO THIS!</Link>
+            <MyProgress name="My Progress" value="10" />
         </div>
     )
 }
