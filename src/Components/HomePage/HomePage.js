@@ -21,7 +21,7 @@ function HomePage(){
                 just aqcuired knowledge.
                 Prove yourself what you are capable of!
             </p>
-            <Link to="/lessons">LET'S DO THIS!</Link>
+            <Link to="/lessons">{ hasCurrentUserBeenHereBefore ? "Continue Learning..." : "LET'S DO THIS!"}</Link>
         </div>
     )
 }
@@ -29,7 +29,8 @@ function getUser() {
     return JSON.parse(sessionStorage.getItem("user"));
 }
 function getCurrentProgress() {
-    const completedLessons = JSON.parse(sessionStorage.getItem("completedLessons")) || [];
+    const user = getUser();
+    const completedLessons = user && user.completedLessons ? user.completedLessons : [];
     return completedLessons.length > 0 ? (completedLessons.length / LessonsArray.length) * 100 : 0;
 }
 
