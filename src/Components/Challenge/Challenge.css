@@ -8,7 +8,6 @@
 }
 .code-arena, .explanation{
     width:50%;
-    height: 200px;
     border:1px solid;
 }
 .console,.coding-area{

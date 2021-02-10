@@ -1,7 +1,13 @@
 [{
   "id": 1,
-  "name":"Lesson 1",
-  "explanation": "vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer",
+  "name":"What the object?",
+  "explanation": {
+      "description" : "Objects in Javascript are simply described as a collection of key/value pairs to store any information. This means that we can think of objects as a bag where we can put items to store them for later use but all those items should be labeled so when you want to find an item if that item is in your bag you can look at the labels to retrieve the actual item.[BR] So how do we create these objects in Javascript? Actually you can create them in different ways. Let's dive into these different ways. First of all we have the object initializers, this is the most simply way to create an object since all you have to do is declare each one of the properties you want to belong to the object by enclosing them (remember as key/value pairs) in curly braces ({}). The way you can separate a key from its value is using a colon between them. Let's see an example.[BR] [OBJECT_INITIALIZER_EXAMPLE_ONE_KEY_VALUE][BR] Pretty simple right? Now, what about having more than one property? In that scenario you can add a comma (,) at the end of the value and keep adding as many key/value paris as you need. Here another object with more than one key/value pairs.[BR] [OBJECT_INITIALIZER_EXAMPLE_MULTIPLE_KEY_VALUE]",
+      "examples":{
+        "OBJECT_INITIALIZER_EXAMPLE_ONE_KEY_VALUE":"var myObject = { key1 : value1 }",
+        "OBJECT_INITIALIZER_EXAMPLE_MULTIPLE_KEY_VALUE": "var myCar = { wheels: 4, doors: 4, headlights: 2 }"
+      }
+  },
   "tests": [
     {
         "id":1,
