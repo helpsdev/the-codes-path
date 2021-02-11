@@ -5,7 +5,8 @@ import LessonsArray from "../../lessons.json";
 import AceEditor from "react-ace";
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-monokai';
-import Prismjs from "prismjs";
+import Prism from "prismjs";
+import 'prismjs/themes/prism.css';
 
 function Challenge() {
     const { lessonId } = useParams();
@@ -46,15 +47,22 @@ function getLessonExplanation(lessonId){
             <h1>{name.toUpperCase()}</h1>
             {description.split("[BR]").map((p, index) => {
                 
-                let result = p;
                 for (const key in examples) {
                     if (Object.hasOwnProperty.call(examples, key)) {
-                        // const exampleHighlighted = Prismjs.highlight("var myObject = { key1 : value1 }", Prism.languages.javascript, 'javascript');
-                        // result = p.replace(new RegExp(`\[${key}\]`, "g"), examples[key]);
+                        const regex = new RegExp(`\\[${key}\\]`);
+                        if (regex.test(p)) {
+                            
+                            const prismified = Prism.highlight(examples[key], Prism.languages.javascript, 'javascript');
+                            return (
+                                <pre key={index.toString()} className="language-js">
+                                    <code key={index.toString()} dangerouslySetInnerHTML={{__html: p.replace(regex, prismified)}}></code>
+                                </pre>
+                            );
+                        }
                     }
                 }
 
-                return <p key={index.toString()}>{result}</p>;
+                return <p key={index.toString()}>{p}</p>;
             })}
         </div>
     );
