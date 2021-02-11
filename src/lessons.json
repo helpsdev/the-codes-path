@@ -8,11 +8,12 @@
         "OBJECT_INITIALIZER_EXAMPLE_MULTIPLE_KEY_VALUE": "var myCar = {\n   wheels: 4,\n   doors: 4,\n   headlights: 2\n }"
       }
   },
+  "challenge":"Now it's your turn. Let's create an object using your new knowledge. We are going to prepare a warrior for it's battle.[BR] 1.Create an object and give it a cool name[BR] 2.Add a property 'weapon' and assign it a value of 'sword'.[BR] 3.Add a property 'life' and assign it a value of 100[BR]",
   "tests": [
     {
         "id":1,
-        "description":"",
-        "code":"code"
+        "description":"The object should contain a property named 'weapon' with a value of 'sword'",
+        "code":"return function(testObj){ return testObj.hasOwnProperty('weapon') && testObj.weapon === 'sword'; }"
     },
     {
         "id":1,

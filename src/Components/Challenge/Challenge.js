@@ -23,24 +23,36 @@ function Challenge() {
             </section>
             <section className="explanation">
                 {getLessonExplanation(lessonId)}
-                <button type="button" onClick={runTests.bind(this, aceEditorValue)}>Run Tests</button>
+                <button type="button" onClick={runTests.bind(this, aceEditorValue, lessonId)}>Run Tests</button>
             </section>
         </div>
     )
 }
-function createFunction(currentCode) {
-    return new Function(currentCode);
+function createRunner(currentCode) {
+    const objectNameRegex = /var (\w+)/g;
+    const objectName = objectNameRegex.exec(currentCode)[1];
+    const wrapper = `return function(){ 
+        ${currentCode}
+        return ${objectName};
+    };`
+    return new Function(wrapper);
+    
 }
-function runTests(currentCode){
+function runTests(currentCode, lessonId){
     const codeArenaConsole = document.querySelector("[data-console]");
-    codeArenaConsole.innerHTML = createFunction(currentCode)();
+    const result = createRunner(currentCode)()();
+    const { tests } = getLessonByLessonId(lessonId);
+    const testFunc = new Function(tests[0].code);
+    const testResult = testFunc()(result);
+    
+    codeArenaConsole.innerHTML = `<p>${tests[0].description} -> ${testResult ? "passed" : "not passed"}</p>`;
 }
 function getLessonByLessonId(lessonId) {
     return LessonsArray.find(l => l.id === Number(lessonId));
 }
 
 function getLessonExplanation(lessonId){
-    const { name, explanation: { description, examples } } = getLessonByLessonId(lessonId);
+    const { name, explanation: { description, examples }, challenge } = getLessonByLessonId(lessonId);
 
     return (
         <div>
@@ -52,10 +64,10 @@ function getLessonExplanation(lessonId){
                         const regex = new RegExp(`\\[${key}\\]`);
                         if (regex.test(p)) {
                             
-                            const prismified = Prism.highlight(examples[key], Prism.languages.javascript, 'javascript');
+                            const prismsified = Prism.highlight(examples[key], Prism.languages.javascript, 'javascript');
                             return (
                                 <pre key={index.toString()} className="language-js">
-                                    <code key={index.toString()} dangerouslySetInnerHTML={{__html: p.replace(regex, prismified)}}></code>
+                                    <code key={index.toString()} dangerouslySetInnerHTML={{__html: p.replace(regex, prismsified)}}></code>
                                 </pre>
                             );
                         }
@@ -64,6 +76,7 @@ function getLessonExplanation(lessonId){
 
                 return <p key={index.toString()}>{p}</p>;
             })}
+            {challenge.split("[BR]").map(p => <p>{p}</p>)}
         </div>
     );
     
