@@ -11,6 +11,7 @@ import 'prismjs/themes/prism.css';
 function Challenge() {
     const { lessonId } = useParams();
     const [aceEditorValue, setAceEditorValue] = useState(null);
+    const [testResults, setTestResults] = useState([]);
     
     return (
         <div className="challenge">
@@ -19,11 +20,13 @@ function Challenge() {
                     theme="monokai" width="100%" 
                     fontSize={14} onChange={setAceEditorValue}
                 />
-                <section className="console" data-console></section>
+                <section className="console" data-console>{
+                    testResults.map(tr => <p>{tr.description} -&gt; {tr.result ? "passed" : "not passed"}</p>)
+                }</section>
             </section>
             <section className="explanation">
                 {getLessonExplanation(lessonId)}
-                <button type="button" onClick={runTests.bind(this, aceEditorValue, lessonId)}>Run Tests</button>
+                <button type="button" onClick={runTests.bind(this, aceEditorValue, lessonId, setTestResults)}>Run Tests</button>
             </section>
         </div>
     )
@@ -38,14 +41,20 @@ function createRunner(currentCode) {
     return new Function(wrapper);
     
 }
-function runTests(currentCode, lessonId){
-    const codeArenaConsole = document.querySelector("[data-console]");
+function runTests(currentCode, lessonId, setTestResults){
     const result = createRunner(currentCode)()();
     const { tests } = getLessonByLessonId(lessonId);
-    const testFunc = new Function(tests[0].code);
-    const testResult = testFunc()(result);
     
-    codeArenaConsole.innerHTML = `<p>${tests[0].description} -> ${testResult ? "passed" : "not passed"}</p>`;
+    setTestResults(tests.map(t => {
+        
+        const testFunc = new Function(t.code);
+        
+        t.result = testFunc()(result);
+        
+        return t;
+
+    }));
+
 }
 function getLessonByLessonId(lessonId) {
     return LessonsArray.find(l => l.id === Number(lessonId));

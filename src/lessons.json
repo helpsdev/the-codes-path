@@ -13,33 +13,19 @@
     {
         "id":1,
         "description":"The object should contain a property named 'weapon' with a value of 'sword'",
-        "code":"return function(testObj){ return testObj.hasOwnProperty('weapon') && testObj.weapon === 'sword'; }"
+        "code":"return function(objToTest){ return objToTest.hasOwnProperty('weapon') && objToTest.weapon === 'sword'; }"
     },
     {
-        "id":1,
-        "description":"",
-        "code":"code"
-    },
-    {
-        "id":1,
-        "description":"",
-        "code":"code"
-    },
-    {
-        "id":1,
-        "description":"",
-        "code":"code"
-    },
-    {
-        "id":1,
-        "description":"",
-        "code":"code"
+        "id":2,
+        "description":"The object should contain a property 'life' and assign it a value of 100",
+        "code":"return function(objToTest){ return objToTest.hasOwnProperty('life') && objToTest.life === 100; }"
     }
   ]
 }, {
   "id": 2,
-  "name":"Lesson 2",
-  "explanation": "tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum",
+  "name":"The function behavior!",
+  "explanation": "Functions are an important part of the Javascript world",
+  "startCode":"",
   "tests": [
     {
         "id":1,
